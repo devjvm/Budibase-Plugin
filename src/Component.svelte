@@ -102,7 +102,7 @@
     //Check if adding selected files will breach file length restriction.
     if (maxFiles && files.length + browseFiles.length > maxFiles) {
       notificationStore.actions.warning(
-        "Too many files. You can only upload " + maxFiles + " files into this field."
+        "Número de arquivos excedido. Permitido " + maxFiles + " arquivo(s)."
       );
       browseFiles = [];
       document.getElementById(buttonID).value = null;
@@ -112,8 +112,8 @@
     for (let i = 0; i < browseFiles.length; i++) {
       if (maxSize && maxSize < browseFiles[i].size) {
         notificationStore.actions.warning(
-          "File " + browseFiles[i].name + " is too large. You can only upload files up to " +
-          maxSize + " bytes into this field."
+          "Arquivo " + browseFiles[i].name + " muito grande. Envie arquivos com até " +
+          maxSize + " bytes."
         );
         //Just to make things clearer, we reject all files if any file is too large.
         //Reset the file input and the browseFiles array.
@@ -184,7 +184,7 @@
       })
       .catch((e) => {
         //If something goes wrong, we send a warning notification and reset the files array to the archivedFiles array.
-        notificationStore.actions.warning("Error reading files. Try again.");
+        notificationStore.actions.warning("Erro ao ler arquivo. Tente novamente.");
         files = [...archivedFiles];
         //Then, we reset the file input and the browseFiles array.
         browseFiles = [];
@@ -206,9 +206,9 @@
         //If there are too many files, we only keep the first maxFiles files.
         files = files.slice(0, maxFiles);
         notificationStore.actions.warning(
-          "Too many files. Only the first " +
+          "Você enviou arquivos demais. Apenas os " +
             maxFiles +
-            " files in the field will be kept."
+            " primeiros serão salvos."
         );
       }
       //Update the blobURL array to match the files array if it is being used.
@@ -226,7 +226,7 @@
           .catch((e) => {
             //If something goes wrong, we send a warning notification and reset all the arrays of files, essentially treating it as if there was no files stored in the first place.
             notificationStore.actions.warning(
-              "Error reading files. Please exit the page to avoid losing data." //We ask the user to exit as if they save the page, the original files stored will be lost.
+              "Erro ao ler arquivos. Para não perder suas informações, saia da página." //We ask the user to exit as if they save the page, the original files stored will be lost.
             );
             files = [];
             archivedFiles = [];
